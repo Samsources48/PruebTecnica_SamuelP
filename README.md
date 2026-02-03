@@ -1,63 +1,128 @@
-# Guía de Despliegue con Docker
+# 🏗️ Arquitectura del Proyecto
 
-Este proyecto consta de 3 servicios orquestados con Docker Compose:
+Este sistema está construido siguiendo una arquitectura de microservicios contenerizada, separando claramente las responsabilidades entre la autenticación, la lógica de negocio y la presentación.
 
-1. **Frontend**: Angular 17 (puerto 4200)
-2. **Orders API**: .NET 9 (puerto 5080)
-3. **Auth API**: .NET 9 (puerto 5081)
-4. **Base de Datos**: SQL Server 2022 (puerto 1433)
+## 🧩 Visión General de Componentes
 
-## Prerrequisitos
+| Servicio       | Tecnología  | Puerto (Docker) | Descripción                                       |
+| -------------- | ----------- | --------------- | ------------------------------------------------- |
+| **Frontend**   | Angular 17+ | `4200`          | Interfaz de usuario modular con Angular Material. |
+| **Auth API**   | .NET 9      | `5081`          | Gestión de usuarios, roles y autenticación JWT.   |
+| **Orders API** | .NET 9      | `5080`          | Gestión de clientes, pedidos y dashboard.         |
+| **Database**   | SQL Server  | `1433`          | Base de datos relacional compartida.              |
 
-- [Docker Desktop](https://www.docker.com/products/docker-desktop/) instalado y ejecutándose.
+---
 
-## Cómo Ejecutar
+## 🔐 1. Auth API (`Clientes_pedidos_API`)
 
-1. **Configurar Variables de Entorno**
-   Verifica el archivo `.env` en la raíz. Puedes cambiar las contraseñas si lo deseas.
+Servicio encargado de la seguridad y gestión de identidad. Sigue una **Arquitectura Hexagonal**.
 
-   ```
-   SA_PASSWORD=YourStrong!Password123
-   JWT_SECRET_KEY=YourSuperSecretKeyForJwtTokens123!
-   ```
+### 📂 Estructura de Directorios
 
-2. **Construir e Iniciar Contenedores**
-   Ejecuta el siguiente comando en la terminal desde la carpeta `MyProyects`:
+```
+Clientes_pedidos_API/
+├── Application/        # Casos de uso y reglas de negocio
+│   ├── DTOs/           # Objetos de transferencia de datos
+│   ├── Features/       # Lógica por funcionalidad (Usuarios, Roles)
+│   ├── Interfaces/     # Contratos de servicios y repositorios
+│   └── Mappings/       # Configuraciones de AutoMapper
+├── Domain/             # Entidades y lógica de dominio puro
+│   ├── Entities/       # Modelos de base de datos (Usuario, Rol)
+│   └── Base/           # Entidades base y auditoría
+├── Infrastructure/     # Implementación técnica
+│   ├── Context/        # DbContext de Entity Framework
+│   ├── Repositories/   # Acceso a datos
+│   └── Services/       # Servicios externos (JWT, Cifrado)
+└── Plant_HexArquitecture_API/ # Entry point (Controllers)
+```
 
-   ```bash
-   docker-compose up --build
-   ```
+### 🔑 Funcionalidades Clave
 
-   _La primera vez tomará unos minutos mientras descarga las imágenes y compila los proyectos._
+- Autenticación mediante **JWT (JSON Web Tokens)**.
+- Gestión de usuarios y roles.
+- Middleware de manejo de excepciones.
 
-3. **Verificar Servicios**
-   - **Frontend**: Abre [http://localhost:4200](http://localhost:4200)
-   - **Orders API Docs**: [http://localhost:5080/scalar](http://localhost:5080/scalar)
-   - **Auth API Docs**: [http://localhost:5081/docs](http://localhost:5081/docs)
+---
 
-## Comandos Útiles
+## 📦 2. Orders API (`Servicio_ClientesPedidos`)
 
-- **Detener todo**:
+Servicio principal que maneja la lógica de negocio de la tienda. También implementa **Clean Architecture**.
 
-  ```bash
-  docker-compose down
-  ```
+### 📂 Estructura de Directorios
 
-- **Ver logs en tiempo real**:
+```
+Servicio_ClientesPedidos/
+├── API/                # Controladores y configuración (Program.cs)
+├── Application/        # Lógica de aplicación
+│   ├── DTOs/           # PedidoDto, ClienteDto, DashboardDto
+│   ├── Features/       # Operaciones CQRS simplificadas
+│   │   ├── Clientes/   # Lógica gestión clientes
+│   │   ├── Pedidos/    # Lógica gestión pedidos
+│   │   └── Dashboard/  # Estadísticas y métricas
+│   └── Interfaces/     # Abstracciones
+├── Domain/             # Núcleo del negocio
+│   ├── Entities/       # Cliente, Pedido, DetallePedido, Producto
+│   └── Repository/     # Interfaces de repositorios genéricos
+└── Infrastructure/     # Persistencia
+    ├── Context/        # SqlDbContext
+    └── Services/       # ExternalAuthService (comunicación entre APIs)
+```
 
-  ```bash
-  docker-compose logs -f
-  ```
+### 🚀 Características
 
-- **Reconstruir un servicio específico** (ej. frontend):
-  ```bash
-  docker-compose up -d --build frontend
-  ```
+- **Entity Framework Core** Code-First con migraciones.
+- Comunicación síncrona con Auth API para registro de usuarios.
+- Patrón **Repository Genérico**.
+- Endpoints optimizados para Dashboard y Reportes.
 
-## Notas Importantes
+---
 
-- **Datos Persistentes**: La base de datos guarda sus datos en un volumen de Docker (`sqlserver_data`), por lo que no perderás información al reiniciar los contenedores.
-- **Conexión SQL**: Si necesitas conectar SSMS (SQL Server Management Studio) localmente, usa:
-  Authentication: SQL Server Authentication
-  Login: sa
-  Password: YourStrong!Password123
+## 🎨 3. Frontend (`Front`)
+
+Aplicación Single Page Application (SPA) construida con Angular, utilizando un diseño modular y moderno.
+
+### 📂 Estructura de Directorios (`src/app/`)
+
+```
+src/app/
+├── core/               # Singleton services y guardias
+│   ├── guards/         # AuthGuard, AdminGuard
+│   ├── interceptors/   # JWT y manejo de errores
+│   └── services/       # AuthService, OrdersService
+├── features/           # Módulos funcionales (Lazy Loading)
+│   ├── auth/           # Login, Registro
+│   ├── dashboard/      # Gráficos y estadísticas
+│   ├── clients/        # Gestión de clientes
+│   ├── orders/         # Gestión de pedidos
+│   └── products/       # Catálogo de productos
+├── shared/             # Componentes reutilizables
+│   ├── components/     # ConfirmDialog, Loader
+│   └── models/         # Interfaces TypeScript (Order, Client)
+└── app.module.ts       # Módulo raíz
+```
+
+### ✨ Stack Tecnológico
+
+- **Angular Material**: Componentes UI (Tablas, Diálogos, Cards).
+- **Chart.js**: Visualización de datos en el Dashboard.
+- **RxJS**: Manejo de flujos de datos asíncronos.
+- **Nginx**: Servidor web para producción en Docker.
+
+---
+
+## 🐳 Orquestación (Docker Compose)
+
+El archivo `docker-compose.yml` integra todos los servicios:
+
+1. **Proxy Inverso (Nginx en Frontend)**:
+   - Redirige `/api/*` -> `orders-api:8080`
+   - Redirige `/auth/*` -> `auth-api:8081`
+   - Sirve estáticos en `/`
+
+2. **Red Interna**: Todos los servicios se comunican en una red bridge `backend-network`.
+
+3. **Variables de Entorno**: Gestionadas centralmente en `.env` para secretos y configuración.
+
+---
+
+_Documentación generada automáticamente para el proyecto de Prueba Técnica._
