@@ -1,18 +1,24 @@
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
-COPY ["Plant_HexArquitecture_API/Plant_HexArquitecture_API.sln", "./"]
+# Copy solution and project files maintaining the correct directory structure
+COPY ["Plant_HexArquitecture_API/Plant_HexArquitecture_API.sln", "Plant_HexArquitecture_API/"]
 COPY ["Plant_HexArquitecture_API/Plant_HexArquitecture_API.csproj", "Plant_HexArquitecture_API/"]
 COPY ["Application/Application.csproj", "Application/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
 COPY ["Infrastructure/Infrastructure.csproj", "Infrastructure/"]
 
+# Run restore from the solution directory
+WORKDIR /src/Plant_HexArquitecture_API
 RUN dotnet restore
 
+# Copy all source code
+WORKDIR /src
 COPY . .
 
+# Build and publish
 WORKDIR /src/Plant_HexArquitecture_API
-RUN dotnet publish -c Release -o /app/publish --no-restore
+RUN dotnet publish -c Release -o /app/publish
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS runtime
 WORKDIR /app

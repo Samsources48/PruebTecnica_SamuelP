@@ -2,7 +2,7 @@ services:
   # Frontend Angular
   frontend:
     build:
-      context: ./Angular_Clientes
+      context: ./Front
       dockerfile: Dockerfile
     container_name: angular-frontend
     ports:
@@ -17,7 +17,7 @@ services:
   # Orders API
   orders-api:
     build:
-      context: ./Clientes_Pedidos_Service
+      context: ./Servicio_ClientesPedidos
       dockerfile: Dockerfile
     container_name: orders-api
     ports:
@@ -25,6 +25,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=DBClientes_Pedidos;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
+      - ExternalServices__AuthApi=http://auth-api:8081
     depends_on:
       - sqlserver
     networks:
@@ -53,8 +54,9 @@ services:
 
   # SQL Server
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2022-latest
+    image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: sqlserver
+    user: "0:0"
     ports:
       - "1433:1433"
     environment:
