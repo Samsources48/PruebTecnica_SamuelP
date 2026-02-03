@@ -23,7 +23,7 @@ services:
     ports:
       - "5080:8080"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=DBClientes_Pedidos;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
     depends_on:
       - sqlserver
@@ -40,7 +40,7 @@ services:
     ports:
       - "5081:8081"
     environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=DbBase;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=True
       - Jwt__Key=${JWT_SECRET_KEY}
       - Jwt__Issuer=PlantHexApi

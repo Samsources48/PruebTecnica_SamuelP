@@ -20,7 +20,7 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
    ```
 
 2. **Construir e Iniciar Contenedores**
-   Ejecuta el siguiente comando en la terminal desde la carpeta principal:
+   Ejecuta el siguiente comando en la terminal desde la carpeta `MyProyects`:
    ```bash
    docker-compose up --build
    ```
@@ -28,8 +28,8 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
 
 3. **Verificar Servicios**
    - **Frontend**: Abre [http://localhost:4200](http://localhost:4200)
-   - **Orders API Swagger**: [http://localhost:5080/swagger](http://localhost:5080/swagger)
-   - **Auth API Swagger**: [http://localhost:5081/swagger](http://localhost:5081/swagger)
+   - **Orders API Docs**: [http://localhost:5080/scalar](http://localhost:5080/scalar)
+   - **Auth API Docs**: [http://localhost:5081/docs](http://localhost:5081/docs)
 
 ## Comandos Útiles
 
