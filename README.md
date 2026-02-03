@@ -1,6 +1,7 @@
 # Guía de Despliegue con Docker
 
 Este proyecto consta de 3 servicios orquestados con Docker Compose:
+
 1. **Frontend**: Angular 17 (puerto 4200)
 2. **Orders API**: .NET 9 (puerto 5080)
 3. **Auth API**: .NET 9 (puerto 5081)
@@ -14,6 +15,7 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
 
 1. **Configurar Variables de Entorno**
    Verifica el archivo `.env` en la raíz. Puedes cambiar las contraseñas si lo deseas.
+
    ```
    SA_PASSWORD=YourStrong!Password123
    JWT_SECRET_KEY=YourSuperSecretKeyForJwtTokens123!
@@ -21,10 +23,12 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
 
 2. **Construir e Iniciar Contenedores**
    Ejecuta el siguiente comando en la terminal desde la carpeta `MyProyects`:
+
    ```bash
    docker-compose up --build
    ```
-   *La primera vez tomará unos minutos mientras descarga las imágenes y compila los proyectos.*
+
+   _La primera vez tomará unos minutos mientras descarga las imágenes y compila los proyectos._
 
 3. **Verificar Servicios**
    - **Frontend**: Abre [http://localhost:4200](http://localhost:4200)
@@ -34,11 +38,13 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
 ## Comandos Útiles
 
 - **Detener todo**:
+
   ```bash
   docker-compose down
   ```
 
 - **Ver logs en tiempo real**:
+
   ```bash
   docker-compose logs -f
   ```
@@ -52,6 +58,6 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
 
 - **Datos Persistentes**: La base de datos guarda sus datos en un volumen de Docker (`sqlserver_data`), por lo que no perderás información al reiniciar los contenedores.
 - **Conexión SQL**: Si necesitas conectar SSMS (SQL Server Management Studio) localmente, usa:
-  - Servidor: `localhost,1433`
-  - Usuario: `sa`
-  - Contraseña: La definida en `.env`
+  Authentication: SQL Server Authentication
+  Login: sa
+  Password: YourStrong!Password123
