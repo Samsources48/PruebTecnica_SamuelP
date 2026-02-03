@@ -1,0 +1,131 @@
+<div class="catalog-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-content">
+      <h1 class="page-title">Gestión de Pedidos</h1>
+      <p class="page-subtitle">Administra y da seguimiento a los pedidos</p>
+    </div>
+    <button class="btn-primary" (click)="openDialog()">
+      <i class="pi pi-shopping-bag"></i>
+      Nuevo Pedido
+    </button>
+  </div>
+
+  <!-- Filters Card -->
+  <div class="filter-card">
+    <div class="filters-row">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Filtrar por Estado</mat-label>
+        <mat-select (selectionChange)="onStatusChange($event.value)">
+          <mat-option value="">Todos</mat-option>
+          <mat-option value="PENDING">Pendiente</mat-option>
+          <mat-option value="COMPLETED">Completado</mat-option>
+          <mat-option value="CANCELLED">Cancelado</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-icon-button class="refresh-btn" (click)="reload()" matTooltip="Actualizar">
+        <i class="pi pi-refresh"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- Data Card -->
+  <div class="data-card">
+    <!-- Loading State -->
+    <div *ngIf="!(ordersFiltered$ | async)" class="loading-bar">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrapper" *ngIf="ordersFiltered$ | async as orders">
+      <table mat-table [dataSource]="orders" class="data-table">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Nº Pedido</th>
+          <td mat-cell *matCellDef="let element">
+            <span class="order-id">#{{element.idPedido}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="client">
+          <th mat-header-cell *matHeaderCellDef>Cliente ID</th>
+          <td mat-cell *matCellDef="let element">
+            <div class="client-badge">
+              <i class="pi pi-user"></i>
+              <span>{{element.idCliente}}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>Fecha</th>
+          <td mat-cell *matCellDef="let element">
+            <span class="date-text">{{element.fechaPedido | date:'dd/MM/yyyy'}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Estado</th>
+          <td mat-cell *matCellDef="let element">
+            <span class="status-badge" [class.pending]="element.estado === 'PENDING'"
+              [class.completed]="element.estado === 'COMPLETED'" [class.cancelled]="element.estado === 'CANCELLED'">
+              <i class="pi" [class.pi-clock]="element.estado === 'PENDING'"
+                [class.pi-check-circle]="element.estado === 'COMPLETED'"
+                [class.pi-times-circle]="element.estado === 'CANCELLED'"></i>
+              {{ element.estado === 'PENDING' ? 'Pendiente' : element.estado === 'COMPLETED' ? 'Completado' :
+              'Cancelado' }}
+            </span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="total">
+          <th mat-header-cell *matHeaderCellDef>Total</th>
+          <td mat-cell *matCellDef="let element">
+            <span class="total-amount">{{element.total | currency}}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-header">Acciones</th>
+          <td mat-cell *matCellDef="let element" class="actions-cell">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="menu-btn">
+              <i class="pi pi-ellipsis-v"></i>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="openDialog(element)">
+                <i class="pi pi-pencil"></i>
+                <span>Editar</span>
+              </button>
+              <button mat-menu-item (click)="updateStatus(element, 'COMPLETED')" *ngIf="element.estado === 'PENDING'">
+                <i class="pi pi-check"></i>
+                <span>Completar</span>
+              </button>
+              <button mat-menu-item (click)="updateStatus(element, 'CANCELLED')" *ngIf="element.estado === 'PENDING'">
+                <i class="pi pi-times"></i>
+                <span>Cancelar</span>
+              </button>
+              <mat-divider></mat-divider>
+              <button mat-menu-item (click)="deleteOrder(element.idPedido)" class="delete-item">
+                <i class="pi pi-trash"></i>
+                <span>Eliminar</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="(ordersFiltered$ | async)?.length === 0" class="empty-state">
+      <i class="pi pi-shopping-bag"></i>
+      <p>No se encontraron pedidos</p>
+      <button class="btn-primary mt-2" (click)="openDialog()">
+        <i class="pi pi-plus"></i> Crear pedido
+      </button>
+    </div>
+  </div>
+</div>

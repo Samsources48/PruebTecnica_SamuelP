@@ -1,0 +1,282 @@
+// Order List Component Styles
+
+.catalog-container {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e5e7eb;
+
+    .header-content {
+        .page-title {
+            margin: 0 0 4px 0;
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            letter-spacing: -0.5px;
+        }
+
+        .page-subtitle {
+            margin: 0;
+            font-size: 14px;
+            color: #6b7280;
+        }
+    }
+}
+
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    i {
+        margin-right: 8px;
+    }
+}
+
+// Filter Card
+.filter-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e7eb;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+}
+
+.filters-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.filter-field {
+    min-width: 200px;
+    margin-bottom: -1.25em;
+}
+
+.refresh-btn {
+    color: #6b7280 !important;
+
+    &:hover {
+        color: #2563eb !important;
+        background: rgba(37, 99, 235, 0.1) !important;
+    }
+
+    i {
+        font-size: 18px;
+    }
+}
+
+// Data Card
+.data-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+}
+
+.loading-bar {
+    padding: 0;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.data-table {
+    width: 100%;
+
+    .mat-mdc-header-row {
+        background: #f9fafb;
+    }
+
+    .mat-mdc-header-cell {
+        color: #4b5563;
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 18px 24px;
+    }
+
+    .mat-mdc-row {
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: #f9fafb;
+        }
+    }
+
+    .mat-mdc-cell {
+        padding: 18px 24px;
+        font-size: 14px;
+        color: #374151;
+        border-bottom: 1px solid #f3f4f6;
+    }
+}
+
+// Order ID
+.order-id {
+    font-family: 'SF Mono', 'Consolas', monospace;
+    font-weight: 600;
+    color: #2563eb;
+    font-size: 14px;
+}
+
+// Client Badge
+.client-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: #f3f4f6;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #4b5563;
+
+    i {
+        font-size: 12px;
+        color: #9ca3af;
+    }
+}
+
+// Date Text
+.date-text {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+// Status Badge
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+
+    i {
+        font-size: 12px;
+    }
+
+    &.pending {
+        background: rgba(245, 158, 11, 0.12);
+        color: #b45309;
+    }
+
+    &.completed {
+        background: rgba(16, 185, 129, 0.12);
+        color: #047857;
+    }
+
+    &.cancelled {
+        background: rgba(239, 68, 68, 0.12);
+        color: #dc2626;
+    }
+}
+
+// Total Amount
+.total-amount {
+    font-weight: 700;
+    color: #111827;
+    font-size: 15px;
+    font-family: 'SF Mono', 'Consolas', monospace;
+}
+
+// Actions
+.actions-header {
+    text-align: right !important;
+}
+
+.actions-cell {
+    text-align: right;
+}
+
+.menu-btn {
+    color: #6b7280 !important;
+
+    &:hover {
+        background: #f3f4f6 !important;
+    }
+
+    i {
+        font-size: 16px;
+    }
+}
+
+// Menu items
+::ng-deep .mat-mdc-menu-item {
+    i {
+        margin-right: 10px;
+        font-size: 16px;
+        width: 16px;
+    }
+
+    &.delete-item {
+        color: #ef4444;
+    }
+}
+
+// Empty State
+.empty-state {
+    text-align: center;
+    padding: 64px 24px;
+    color: #6b7280;
+
+    i {
+        font-size: 56px;
+        margin-bottom: 20px;
+        color: #d1d5db;
+    }
+
+    p {
+        margin: 0 0 16px 0;
+        font-size: 16px;
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .catalog-container {
+        padding: 16px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 16px;
+
+        .page-title {
+            font-size: 24px;
+        }
+    }
+
+    .filter-field {
+        width: 100%;
+    }
+}

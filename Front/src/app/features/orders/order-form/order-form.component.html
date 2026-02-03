@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Editar Pedido' : 'Nuevo Pedido' }}</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="flex-col">
+    <!-- Header Info -->
+    <div class="form-row">
+        <mat-form-field appearance="outline" class="flex-1">
+          <mat-label>Cliente</mat-label>
+          <mat-select formControlName="idCliente">
+            <mat-option *ngFor="let client of clients$ | async" [value]="client.idCliente">
+              {{ client.nombre }} {{ client.apellido }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.get('idCliente')?.hasError('required')">Cliente es requerido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="flex-1">
+            <mat-label>Estado</mat-label>
+            <mat-select formControlName="estado">
+              <mat-option value="PENDING">Pendiente</mat-option>
+              <mat-option value="COMPLETED">Completado</mat-option>
+              <mat-option value="CANCELLED">Cancelado</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Descripción</mat-label>
+      <input matInput formControlName="descripcion">
+    </mat-form-field>
+
+    <!-- Details -->
+    <h3>Detalles del Pedido</h3>
+    <div formArrayName="detalles" class="detalles-container">
+      <div *ngFor="let detail of detalles.controls; let i = index" [formGroupName]="i" class="detail-row">
+        
+        <mat-form-field appearance="outline" class="product-select">
+          <mat-label>Producto</mat-label>
+          <mat-select formControlName="idProducto" (selectionChange)="updateSubtotal(detail)">
+            <mat-option *ngFor="let prod of products$ | async" [value]="prod.idProducto">
+              {{ prod.nombreProducto }} ({{ prod.precio | currency }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="quantity-input">
+          <mat-label>Cant.</mat-label>
+          <input matInput type="number" formControlName="cantidad" min="1" (change)="updateSubtotal(detail)">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="price-input">
+            <mat-label>Subtotal</mat-label>
+            <input matInput type="number" formControlName="subtotal">
+        </mat-form-field>
+
+        <button mat-icon-button color="warn" (click)="removeDetail(i)" type="button">
+          <i class="pi pi-trash"></i>
+        </button>
+      </div>
+    </div>
+
+    <button mat-button (click)="addDetail()" type="button" color="primary">
+        <i class="pi pi-plus"></i> Agregar Producto
+    </button>
+
+    <div class="total-row">
+        <h3>Total: {{ total | currency }}</h3>
+    </div>
+
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Guardar</button>
+</mat-dialog-actions>

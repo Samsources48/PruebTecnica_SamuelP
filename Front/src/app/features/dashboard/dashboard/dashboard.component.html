@@ -1,0 +1,135 @@
+<!-- Dashboard Header -->
+<div class="dashboard-header">
+  <div class="header-info">
+    <h1>Resumen</h1>
+    <p class="subtitle">Resumen del sistema y métricas clave</p>
+  </div>
+</div>
+
+<!-- Stats Cards Grid -->
+<div class="stats-grid">
+  <mat-card class="stat-card">
+    <mat-card-content class="stat-content">
+      <div class="stat-header">
+        <span class="stat-label">TOTAL PEDIDOS</span>
+        <div class="stat-icon blue">
+          <i class="pi pi-shopping-bag"></i>
+        </div>
+      </div>
+      <div class="stat-value">{{ stats()?.totalOrders || 0 | number }}</div>
+      <div class="stat-trend positive">
+        <i class="pi pi-arrow-up"></i>
+        <span>+12.5% desde el mes pasado</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="stat-card">
+    <mat-card-content class="stat-content">
+      <div class="stat-header">
+        <span class="stat-label">CLIENTES ACTIVOS</span>
+        <div class="stat-icon purple">
+          <i class="pi pi-users"></i>
+        </div>
+      </div>
+      <div class="stat-value">{{ stats()?.activeClients || 0 | number }}</div>
+      <div class="stat-trend positive">
+        <i class="pi pi-arrow-up"></i>
+        <span>+5.2% nuevos registros</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="stat-card">
+    <mat-card-content class="stat-content">
+      <div class="stat-header">
+        <span class="stat-label">COMPLETADOS</span>
+        <div class="stat-icon green">
+          <i class="pi pi-check-circle"></i>
+        </div>
+      </div>
+      <div class="stat-value">{{ stats()?.completedOrders || 0 | number }}</div>
+      <div class="stat-trend positive">
+        <i class="pi pi-arrow-up"></i>
+        <span>+2.1% de eficiencia</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="stat-card">
+    <mat-card-content class="stat-content">
+      <div class="stat-header">
+        <span class="stat-label">PENDIENTES</span>
+        <div class="stat-icon orange">
+          <i class="pi pi-clock"></i>
+        </div>
+      </div>
+      <div class="stat-value">{{ stats()?.pendingOrders || 0 | number }}</div>
+      <div class="stat-trend neutral">
+        <i class="pi pi-minus"></i>
+        <span>Sin cambios</span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<!-- Charts Section -->
+<div class="charts-grid">
+  <!-- Activity Chart -->
+  <mat-card class="chart-card activity-chart">
+    <mat-card-header class="chart-header">
+      <div class="chart-title-section">
+        <mat-card-title>Actividad Mensual</mat-card-title>
+        <mat-card-subtitle>Tendencias de pedidos y conversión</mat-card-subtitle>
+      </div>
+      <div class="time-filter">
+        <button class="filter-btn" [class.active]="selectedPeriod() === 'day'" (click)="setTimePeriod('day')">
+          Día
+        </button>
+        <button class="filter-btn" [class.active]="selectedPeriod() === 'week'" (click)="setTimePeriod('week')">
+          Semana
+        </button>
+        <button class="filter-btn" [class.active]="selectedPeriod() === 'month'" (click)="setTimePeriod('month')">
+          Mes
+        </button>
+        <button class="filter-btn" [class.active]="selectedPeriod() === '6months'" (click)="setTimePeriod('6months')">
+          6 Meses
+        </button>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <canvas id="activityChart"></canvas>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Order Status Chart -->
+  <mat-card class="chart-card status-chart">
+    <mat-card-header class="chart-header">
+      <div class="chart-title-section">
+        <mat-card-title>Estado de Pedidos</mat-card-title>
+        <mat-card-subtitle>Distribución del mes actual</mat-card-subtitle>
+      </div>
+    </mat-card-header>
+    <mat-card-content class="donut-content">
+      <div class="donut-container">
+        <canvas id="statusChart"></canvas>
+        <div class="donut-center">
+          <span class="donut-percentage">{{ completedPercentage() }}%</span>
+          <span class="donut-label">COMPLETADOS</span>
+        </div>
+      </div>
+      <div class="legend-container">
+        <div class="legend-item">
+          <span class="legend-dot completed"></span>
+          <span class="legend-label">Completados</span>
+          <span class="legend-value">{{ stats()?.completedOrders || 0 }}</span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-dot pending"></span>
+          <span class="legend-label">Pendientes</span>
+          <span class="legend-value">{{ stats()?.pendingOrders || 0 }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

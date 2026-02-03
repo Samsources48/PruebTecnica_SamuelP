@@ -1,0 +1,385 @@
+@import "primeicons/primeicons.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+
+// =====================================================
+// GLOBAL STYLES - Corporate Minimalist Design System
+// =====================================================
+
+// CSS Variables - Color Palette
+:root {
+    --primary-blue: #2563eb;
+    --primary-dark: #1d4ed8;
+    --accent-purple: #7c3aed;
+    --success-green: #10b981;
+    --warning-amber: #f59e0b;
+    --danger-red: #ef4444;
+    --neutral-900: #111827;
+    --neutral-800: #1f2937;
+    --neutral-700: #374151;
+    --neutral-600: #4b5563;
+    --neutral-500: #6b7280;
+    --neutral-400: #9ca3af;
+    --neutral-300: #d1d5db;
+    --neutral-200: #e5e7eb;
+    --neutral-100: #f3f4f6;
+    --neutral-50: #f9fafb;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+// Base styles
+html,
+body {
+    height: 100%;
+    background: var(--neutral-50);
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Roboto', 'Helvetica Neue', sans-serif;
+    color: var(--neutral-800);
+    -webkit-font-smoothing: antialiased;
+}
+
+// =====================================================
+// Utility Classes
+// =====================================================
+.spacer {
+    flex: 1 1 auto;
+}
+
+.container {
+    padding: 24px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.mt-2 {
+    margin-top: 1rem;
+}
+
+.mb-2 {
+    margin-bottom: 1rem;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+// =====================================================
+// Page Header Styles
+// =====================================================
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--neutral-200);
+
+    .page-title {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--neutral-900);
+        letter-spacing: -0.5px;
+    }
+
+    .page-subtitle {
+        margin: 4px 0 0 0;
+        font-size: 14px;
+        color: var(--neutral-500);
+    }
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    h2 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--neutral-900);
+        letter-spacing: -0.5px;
+    }
+}
+
+// =====================================================
+// Button Styles
+// =====================================================
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%) !important;
+    color: var(--white) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.3px;
+    transition: all 0.2s ease !important;
+    box-shadow: var(--shadow-sm);
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+    }
+
+    i {
+        margin-right: 6px;
+    }
+}
+
+.mat-mdc-raised-button.mat-primary {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-dark) 100%);
+    border-radius: 8px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+
+    &:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    }
+}
+
+// =====================================================
+// Card Styles
+// =====================================================
+.mat-mdc-card {
+    border-radius: 12px !important;
+    box-shadow: var(--shadow-md) !important;
+    border: 1px solid var(--neutral-200);
+    overflow: hidden;
+}
+
+.mat-mdc-card-content {
+    padding: 0 !important;
+}
+
+// =====================================================
+// Table Styles - Corporate Design
+// =====================================================
+.mat-mdc-table {
+    width: 100%;
+    background: var(--white);
+
+    .mat-mdc-header-row {
+        background: var(--neutral-50);
+        border-bottom: 2px solid var(--neutral-200);
+    }
+
+    .mat-mdc-header-cell {
+        color: var(--neutral-600);
+        font-weight: 600;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 16px 20px;
+        border-bottom: none;
+    }
+
+    .mat-mdc-row {
+        transition: background 0.15s ease;
+
+        &:hover {
+            background: var(--neutral-50);
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid var(--neutral-100);
+        }
+    }
+
+    .mat-mdc-cell {
+        color: var(--neutral-800);
+        font-size: 14px;
+        padding: 16px 20px;
+        border-bottom: none;
+    }
+}
+
+// Action Buttons in Tables
+.action-cell {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+}
+
+.mat-mdc-icon-button {
+    &.edit-btn {
+        color: var(--primary-blue);
+
+        &:hover {
+            background: rgba(37, 99, 235, 0.1);
+        }
+    }
+
+    &.delete-btn {
+        color: var(--danger-red);
+
+        &:hover {
+            background: rgba(239, 68, 68, 0.1);
+        }
+    }
+}
+
+// =====================================================
+// Form Field Styles
+// =====================================================
+.mat-mdc-form-field {
+    &.mat-form-field-appearance-outline {
+
+        .mdc-notched-outline__leading,
+        .mdc-notched-outline__notch,
+        .mdc-notched-outline__trailing {
+            border-color: var(--neutral-300);
+        }
+
+        &:hover .mdc-notched-outline__leading,
+        &:hover .mdc-notched-outline__notch,
+        &:hover .mdc-notched-outline__trailing {
+            border-color: var(--neutral-400);
+        }
+
+        &.mat-focused .mdc-notched-outline__leading,
+        &.mat-focused .mdc-notched-outline__notch,
+        &.mat-focused .mdc-notched-outline__trailing {
+            border-color: var(--primary-blue);
+        }
+    }
+}
+
+// =====================================================
+// Status Chips / Badges
+// =====================================================
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    &.pending {
+        background: rgba(245, 158, 11, 0.15);
+        color: #b45309;
+    }
+
+    &.completed {
+        background: rgba(16, 185, 129, 0.15);
+        color: #047857;
+    }
+
+    &.cancelled {
+        background: rgba(239, 68, 68, 0.15);
+        color: #dc2626;
+    }
+}
+
+// Chip Override for Status
+.mat-mdc-chip-set {
+    .mat-mdc-chip {
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border-radius: 6px;
+        height: 26px;
+    }
+}
+
+// =====================================================
+// Dialog Styles
+// =====================================================
+.mat-mdc-dialog-container {
+    border-radius: 16px !important;
+
+    .mat-mdc-dialog-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--neutral-900);
+        padding: 24px 24px 8px 24px;
+        margin: 0;
+    }
+
+    .mat-mdc-dialog-content {
+        padding: 16px 24px !important;
+    }
+
+    .mat-mdc-dialog-actions {
+        padding: 16px 24px 24px 24px !important;
+        gap: 12px;
+    }
+}
+
+// =====================================================
+// Empty State
+// =====================================================
+.empty-state {
+    text-align: center;
+    padding: 48px 24px;
+    color: var(--neutral-500);
+
+    i {
+        font-size: 48px;
+        margin-bottom: 16px;
+        color: var(--neutral-300);
+    }
+
+    p {
+        margin: 0;
+        font-size: 15px;
+    }
+}
+
+// =====================================================
+// Progress Bar
+// =====================================================
+.mat-mdc-progress-bar {
+    border-radius: 4px;
+    height: 4px;
+}
+
+// =====================================================
+// Menu Styles
+// =====================================================
+.mat-mdc-menu-panel {
+    border-radius: 10px !important;
+    box-shadow: var(--shadow-lg) !important;
+}
+
+.mat-mdc-menu-item {
+    font-size: 14px;
+
+    i {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+}
+
+// =====================================================
+// Filter Card (for Order List)
+// =====================================================
+.filter-card {
+    margin-bottom: 16px;
+    padding: 12px 20px;
+
+    .mat-mdc-form-field {
+        margin-bottom: -1.25em;
+    }
+}

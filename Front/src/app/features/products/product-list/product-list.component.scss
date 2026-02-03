@@ -1,0 +1,270 @@
+// Product List Component Styles
+
+.catalog-container {
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e5e7eb;
+
+  .header-content {
+    .page-title {
+      margin: 0 0 4px 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #111827;
+      letter-spacing: -0.5px;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      font-size: 14px;
+      color: #6b7280;
+    }
+  }
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+  }
+
+  i {
+    margin-right: 8px;
+  }
+}
+
+.data-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+}
+
+.loading-bar {
+  padding: 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+
+  .mat-mdc-header-row {
+    background: #f9fafb;
+  }
+
+  .mat-mdc-header-cell {
+    color: #4b5563;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 18px 24px;
+  }
+
+  .mat-mdc-row {
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: #f9fafb;
+    }
+  }
+
+  .mat-mdc-cell {
+    padding: 18px 24px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #f3f4f6;
+  }
+}
+
+// Product Info Cell
+.product-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.product-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+
+  .product-name {
+    font-weight: 600;
+    color: #111827;
+    font-size: 14px;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 2px;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+// Price Tag
+.price-tag {
+  font-weight: 700;
+  color: #111827;
+  font-size: 15px;
+  font-family: 'SF Mono', 'Consolas', monospace;
+}
+
+// Stock Badge
+.stock-badge {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 14px;
+  background: #ecfdf5;
+  border-radius: 8px;
+  min-width: 70px;
+
+  .stock-value {
+    font-weight: 700;
+    font-size: 16px;
+    color: #047857;
+  }
+
+  .stock-label {
+    font-size: 10px;
+    color: #10b981;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  &.low {
+    background: #fffbeb;
+
+    .stock-value {
+      color: #b45309;
+    }
+
+    .stock-label {
+      color: #f59e0b;
+    }
+  }
+
+  &.out {
+    background: #fef2f2;
+
+    .stock-value {
+      color: #dc2626;
+    }
+
+    .stock-label {
+      color: #ef4444;
+    }
+  }
+}
+
+// Actions
+.actions-header {
+  text-align: right !important;
+}
+
+.actions-cell {
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+
+.edit-btn {
+  color: #2563eb !important;
+
+  &:hover {
+    background: rgba(37, 99, 235, 0.1) !important;
+  }
+
+  i {
+    font-size: 16px;
+  }
+}
+
+.delete-btn {
+  color: #ef4444 !important;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+  }
+
+  i {
+    font-size: 16px;
+  }
+}
+
+// Empty State
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: #6b7280;
+
+  i {
+    font-size: 56px;
+    margin-bottom: 20px;
+    color: #d1d5db;
+  }
+
+  p {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .catalog-container {
+    padding: 16px;
+  }
+
+  .page-header {
+    flex-direction: column;
+    gap: 16px;
+
+    .page-title {
+      font-size: 24px;
+    }
+  }
+}
