@@ -20,7 +20,7 @@ Este proyecto consta de 3 servicios orquestados con Docker Compose:
    ```
 
 2. **Construir e Iniciar Contenedores**
-   Ejecuta el siguiente comando en la terminal desde la carpeta `MyProyects`:
+   Ejecuta el siguiente comando en la terminal desde la carpeta principal:
    ```bash
    docker-compose up --build
    ```
