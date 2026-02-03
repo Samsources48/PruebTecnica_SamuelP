@@ -10,6 +10,7 @@ namespace Application.DTOs
         public decimal Total { get; set; }
         public string Estado { get; set; } = string.Empty;
         public long IdCliente { get; set; }
+        public string? NombreCliente { get; set; }
         public List<DetallePedidoDto> Detalles { get; set; } = new List<DetallePedidoDto>();
     }
 
@@ -17,6 +18,8 @@ namespace Application.DTOs
     {
         public string? Descripcion { get; set; }
         public int IdCliente { get; set; }
+        public string? Estado { get; set; }
+        public DateTime? FechaPedido { get; set; }
         public List<SaveDetallePedidoDto> Detalles { get; set; } = new List<SaveDetallePedidoDto>();
     }
 

@@ -14,5 +14,6 @@ export interface Order {
   estado: string;
   activo?: boolean;
   idCliente: number;
+  nombreCliente?: string;
   detalles: OrderDetail[];
 }

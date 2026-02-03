@@ -17,10 +17,6 @@
         </div>
       </div>
       <div class="stat-value">{{ stats()?.totalOrders || 0 | number }}</div>
-      <div class="stat-trend positive">
-        <i class="pi pi-arrow-up"></i>
-        <span>+12.5% desde el mes pasado</span>
-      </div>
     </mat-card-content>
   </mat-card>
 
@@ -33,10 +29,6 @@
         </div>
       </div>
       <div class="stat-value">{{ stats()?.activeClients || 0 | number }}</div>
-      <div class="stat-trend positive">
-        <i class="pi pi-arrow-up"></i>
-        <span>+5.2% nuevos registros</span>
-      </div>
     </mat-card-content>
   </mat-card>
 
@@ -49,10 +41,6 @@
         </div>
       </div>
       <div class="stat-value">{{ stats()?.completedOrders || 0 | number }}</div>
-      <div class="stat-trend positive">
-        <i class="pi pi-arrow-up"></i>
-        <span>+2.1% de eficiencia</span>
-      </div>
     </mat-card-content>
   </mat-card>
 
@@ -65,10 +53,6 @@
         </div>
       </div>
       <div class="stat-value">{{ stats()?.pendingOrders || 0 | number }}</div>
-      <div class="stat-trend neutral">
-        <i class="pi pi-minus"></i>
-        <span>Sin cambios</span>
-      </div>
     </mat-card-content>
   </mat-card>
 </div>

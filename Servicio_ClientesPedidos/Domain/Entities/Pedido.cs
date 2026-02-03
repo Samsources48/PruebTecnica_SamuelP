@@ -17,7 +17,7 @@ public class Pedido : BaseEntity
     public decimal Total { get; set; }
 
     [MaxLength(50)]
-    public string Estado { get; set; } = "Pendiente"; // Pendiente, Completado, Cancelado
+    public string Estado { get; set; } = "Pendiente";
     public long IdCliente { get; set; }
 
     [ForeignKey("IdCliente")]

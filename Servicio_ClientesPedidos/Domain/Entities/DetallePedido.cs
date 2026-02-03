@@ -18,6 +18,8 @@ namespace Domain.Entities
         public int Cantidad { get; set; }
         [Column(TypeName = "decimal(14,2)")]
         public decimal PrecioUnitario { get; set; }
+        [Column(TypeName = "decimal(14,2)")]
+        public decimal Subtotal { get; set; }
         public long IdPedido { get; set; }
         [ForeignKey("IdPedido")]
         public virtual Pedido? Pedido { get; set; }

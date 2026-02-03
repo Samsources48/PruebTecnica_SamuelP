@@ -23,7 +23,7 @@ export class ClientFormComponent {
       nombre: [data?.nombre || '', [Validators.required]],
       apellido: [data?.apellido || '', [Validators.required]],
       email: [data?.email || '', [Validators.required, Validators.email]],
-      telefono: [data?.telefono || ''],
+      telefono: [data?.telefono || '', [Validators.pattern(/^\d{10}$/)]],
       direccion: [data?.direccion || ''],
       activo: [data?.activo ?? true] // Default to true if new
     });
@@ -36,7 +36,7 @@ export class ClientFormComponent {
 
     if (this.isEditMode && this.data) {
       const updatedClient = { ...this.data, ...clientData };
-      this.clientsService.updateClient(this.data.idCliente ||0, updatedClient).subscribe({
+      this.clientsService.updateClient(this.data.idCliente || 0, updatedClient).subscribe({
         next: (res) => this.dialogRef.close(res),
         error: (err) => console.error(err)
       });

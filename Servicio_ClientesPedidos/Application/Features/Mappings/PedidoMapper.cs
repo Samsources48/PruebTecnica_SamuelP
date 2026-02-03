@@ -16,6 +16,7 @@ namespace Application.Features.Mappings
                 Total = entity.Total,
                 Estado = entity.Estado,
                 IdCliente = entity.IdCliente,
+                NombreCliente = entity.Cliente != null ? $"{entity.Cliente.Nombre} {entity.Cliente.Apellido}" : null,
                 Activo = entity.Activo,
                 FechaRegistro = entity.FechaRegistro,
                 Detalles = entity.Detalles != null 
@@ -33,7 +34,7 @@ namespace Application.Features.Mappings
                 IdProducto = entity.IdProducto,
                 Cantidad = entity.Cantidad,
                 PrecioUnitario = entity.PrecioUnitario,
-                //Subtotal = entity.Subtotal
+                Subtotal = entity.Cantidad * entity.PrecioUnitario
             };
         }
 
@@ -44,8 +45,8 @@ namespace Application.Features.Mappings
             {
                 Descripcion = dto.Descripcion,
                 IdCliente = dto.IdCliente,
-                Estado = "Pendiente",
-                FechaPedido = DateTime.Now,
+                Estado = !string.IsNullOrEmpty(dto.Estado) ? dto.Estado : "Pendiente",
+                FechaPedido = dto.FechaPedido ?? DateTime.Now,
                 Activo = true,
                 FechaRegistro = DateTime.Now,
                 Detalles = dto.Detalles != null 
@@ -55,16 +56,16 @@ namespace Application.Features.Mappings
             
             if (pedido.Detalles.Any())
             {
-                pedido.Total = pedido.Detalles.Sum(d => d.Cantidad * d.PrecioUnitario);
+                pedido.Total = pedido.Detalles.Sum(d => d.Subtotal);
             }
-
             return pedido;
         }
 
         public static DetallePedido toDetalleEntity(SaveDetallePedidoDto dto)
         {
             if (dto == null) return new DetallePedido();
-            return new DetallePedido
+            
+            var detalle = new DetallePedido
             {
                 IdProducto = dto.IdProducto,
                 Cantidad = dto.Cantidad,
@@ -72,6 +73,9 @@ namespace Application.Features.Mappings
                 Activo = true,
                 FechaRegistro = DateTime.Now
             };
+            
+            detalle.Subtotal = detalle.Cantidad * detalle.PrecioUnitario;
+            return detalle;
         }
 
         public static List<PedidoDto> Map(List<Pedido> pedidos)

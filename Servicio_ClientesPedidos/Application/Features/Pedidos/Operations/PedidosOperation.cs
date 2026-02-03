@@ -10,7 +10,7 @@ namespace Application.Features.Pedidos.Operations
     {
         public async Task<List<PedidoDto>> GetAll()
         {
-            var response = await pedidoRepository.GetAllAsync();
+            var response = await pedidoRepository.GetAllAsync(x => x.Activo, p => p.Cliente);
             return PedidoMapper.Map(response);
         }
 
